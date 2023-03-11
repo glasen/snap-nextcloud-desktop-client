@@ -1,5 +1,5 @@
 name: nextcloud-desktop-client
-version: '3.6.6'
+version: '3.7.4'
 base: core20
 summary: Nextcloud Desktop Client
 description: |
@@ -75,6 +75,7 @@ apps:
 
 build-packages:
   - libcloudproviders-dev
+  - libkf5archive-dev
   - libqt5svg5-dev
   - libqt5websockets5-dev
   - librsvg2-bin
@@ -137,7 +138,7 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr/
       - -DQUICK_COMPILER=ON
       - -DWITH_CRASHREPORTER=OFF
-    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.6.6.tar.gz
+    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.7.4.tar.gz
     source-type: tar
     override-pull: |
       snapcraftctl pull
@@ -151,6 +152,7 @@ parts:
       - -usr/include/
     stage-packages:
       - libcloudproviders0
+      - libkf5archive5
       - libqt5keychain1
       - libqt5quickcontrols2-5
       - libqt5quicktemplates2-5

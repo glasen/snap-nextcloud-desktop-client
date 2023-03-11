@@ -1,12 +1,12 @@
-diff -upNr desktop-3.6.1.orig/src/gui/application.cpp desktop-3.6.1.patched/src/gui/application.cpp
---- desktop-3.6.1.orig/src/gui/application.cpp	2022-10-18 12:16:17.000000000 +0200
-+++ desktop-3.6.1.patched/src/gui/application.cpp	2022-10-21 12:18:41.411695441 +0200
-@@ -196,7 +196,7 @@ Application::Application(int &argc, char
-     , _showLogWindow(false)
-     , _logExpire(0)
-     , _logFlush(false)
--    , _logDebug(true)
-+    , _logDebug(false)
-     , _userTriggeredConnect(false)
-     , _debugMode(false)
-     , _backgroundMode(false)
+diff -upNr desktop-3.7.4/src/gui/application.h desktop-3.7.4.patched/src/gui/application.h
+--- desktop-3.7.4/src/gui/application.h	2023-03-09 09:57:57.000000000 +0100
++++ desktop-3.7.4.patched/src/gui/application.h	2023-03-11 16:06:06.147411392 +0100
+@@ -134,7 +134,7 @@ private:
+     QString _logDir;
+     int _logExpire = 0;
+     bool _logFlush = false;
+-    bool _logDebug = true;
++    bool _logDebug = false;
+     bool _userTriggeredConnect = false;
+     bool _debugMode = false;
+     bool _backgroundMode = false;
