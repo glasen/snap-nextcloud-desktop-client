@@ -1,6 +1,6 @@
-diff -upNr desktop-3.7.4/src/common/utility.h desktop-3.7.4.patched/src/common/utility.h
---- desktop-3.7.4/src/common/utility.h	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/common/utility.h	2023-03-11 16:00:40.070579869 +0100
+diff -upNr desktop-3.8.0/src/common/utility.h desktop-3.8.0.patched/src/common/utility.h
+--- desktop-3.8.0/src/common/utility.h	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/common/utility.h	2023-04-16 22:03:38.550930205 +0200
 @@ -30,6 +30,8 @@
  #include <QMap>
  #include <QUrl>
@@ -41,9 +41,9 @@ diff -upNr desktop-3.7.4/src/common/utility.h desktop-3.7.4.patched/src/common/u
  }
 +
  #endif // UTILITY_H
-diff -upNr desktop-3.7.4/src/gui/folderwizard.cpp desktop-3.7.4.patched/src/gui/folderwizard.cpp
---- desktop-3.7.4/src/gui/folderwizard.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/gui/folderwizard.cpp	2023-03-11 16:00:40.070579869 +0100
+diff -upNr desktop-3.8.0/src/gui/folderwizard.cpp desktop-3.8.0.patched/src/gui/folderwizard.cpp
+--- desktop-3.8.0/src/gui/folderwizard.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/gui/folderwizard.cpp	2023-04-16 22:09:47.730932385 +0200
 @@ -23,6 +23,7 @@
  #include "creds/abstractcredentials.h"
  #include "wizard/owncloudwizard.h"
@@ -58,7 +58,7 @@ diff -upNr desktop-3.7.4/src/gui/folderwizard.cpp desktop-3.7.4.patched/src/gui/
      serverUrl.setUserName(_account->credentials()->user());
 -    QString defaultPath = QDir::homePath() + QLatin1Char('/') + Theme::instance()->appName();
 +    QString defaultPath = getHomeFolderPath() + QLatin1Char('/') + Theme::instance()->appName();
-     defaultPath = FolderMan::instance()->findGoodPathForNewSyncFolder(defaultPath, serverUrl);
+     defaultPath = FolderMan::instance()->findGoodPathForNewSyncFolder(defaultPath, serverUrl, FolderMan::GoodPathStrategy::AllowOnlyNewPath);
      _ui.localFolderLineEdit->setText(QDir::toNativeSeparators(defaultPath));
      _ui.localFolderLineEdit->setToolTip(tr("Enter the path to the local folder."));
 @@ -122,7 +123,7 @@ bool FolderWizardLocalPath::isComplete()
@@ -70,9 +70,9 @@ diff -upNr desktop-3.7.4/src/gui/folderwizard.cpp desktop-3.7.4.patched/src/gui/
      QDir d(sf);
  
      // open the first entry of the home dir. Otherwise the dir picker comes
-diff -upNr desktop-3.7.4/src/gui/owncloudsetupwizard.cpp desktop-3.7.4.patched/src/gui/owncloudsetupwizard.cpp
---- desktop-3.7.4/src/gui/owncloudsetupwizard.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/gui/owncloudsetupwizard.cpp	2023-03-11 16:00:40.070579869 +0100
+diff -upNr desktop-3.8.0/src/gui/owncloudsetupwizard.cpp desktop-3.8.0.patched/src/gui/owncloudsetupwizard.cpp
+--- desktop-3.8.0/src/gui/owncloudsetupwizard.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/gui/owncloudsetupwizard.cpp	2023-04-16 22:03:38.554930255 +0200
 @@ -37,6 +37,7 @@
  #include "creds/credentialsfactory.h"
  #include "creds/abstractcredentials.h"
@@ -81,7 +81,7 @@ diff -upNr desktop-3.7.4/src/gui/owncloudsetupwizard.cpp desktop-3.7.4.patched/s
  
  namespace OCC {
  
-@@ -111,7 +112,7 @@ void OwncloudSetupWizard::startWizard()
+@@ -113,7 +114,7 @@ void OwncloudSetupWizard::startWizard()
      // if its a relative path, prepend with users home dir, otherwise use as absolute path
  
      if (!QDir(localFolder).isAbsolute()) {
@@ -90,9 +90,9 @@ diff -upNr desktop-3.7.4/src/gui/owncloudsetupwizard.cpp desktop-3.7.4.patched/s
      }
  
      _ocWizard->setProperty("localFolder", localFolder);
-diff -upNr desktop-3.7.4/src/gui/syncrunfilelog.cpp desktop-3.7.4.patched/src/gui/syncrunfilelog.cpp
---- desktop-3.7.4/src/gui/syncrunfilelog.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/gui/syncrunfilelog.cpp	2023-03-11 16:00:40.070579869 +0100
+diff -upNr desktop-3.8.0/src/gui/syncrunfilelog.cpp desktop-3.8.0.patched/src/gui/syncrunfilelog.cpp
+--- desktop-3.8.0/src/gui/syncrunfilelog.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/gui/syncrunfilelog.cpp	2023-04-16 22:03:38.554930255 +0200
 @@ -32,7 +32,7 @@ void SyncRunFileLog::start(const QString
  {
      const qint64 logfileMaxSize = 10 * 1024 * 1024; // 10MiB
@@ -102,9 +102,9 @@ diff -upNr desktop-3.7.4/src/gui/syncrunfilelog.cpp desktop-3.7.4.patched/src/gu
      if(!QDir(logpath).exists()) {
          QDir().mkdir(logpath);
      }
-diff -upNr desktop-3.7.4/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.7.4.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp
---- desktop-3.7.4/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-03-11 16:00:40.070579869 +0100
+diff -upNr desktop-3.8.0/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.8.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp
+--- desktop-3.8.0/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-04-16 22:08:53.842324740 +0200
 @@ -34,6 +34,7 @@
  #include "creds/abstractcredentials.h"
  #include "networkjobs.h"
@@ -113,17 +113,22 @@ diff -upNr desktop-3.7.4/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.
  
  namespace OCC {
  
-@@ -155,8 +156,7 @@ void OwncloudAdvancedSetupPage::initiali
-     _ui.lSyncEverythingSizeLabel->clear();
- 
+@@ -157,13 +158,7 @@ void OwncloudAdvancedSetupPage::initiali
      // Update the local folder - this is not guaranteed to find a good one
--    QString goodLocalFolder = FolderMan::instance()->findGoodPathForNewSyncFolder(localFolder(), serverUrl());
+     ConfigFile cfg;
+     const auto overrideLocalDir = !cfg.overrideLocalDir().isEmpty();
+-
+-    auto goodLocalFolder = FolderMan::instance()->findGoodPathForNewSyncFolder(localFolder(), serverUrl(), FolderMan::GoodPathStrategy::AllowOnlyNewPath);
+-    if (overrideLocalDir) {
+-        ConfigFile cfg;
+-        goodLocalFolder = FolderMan::instance()->findGoodPathForNewSyncFolder(cfg.overrideLocalDir(), serverUrl(), FolderMan::GoodPathStrategy::AllowOverrideExistingPath);
+-    }
 -    wizard()->setProperty("localFolder", goodLocalFolder);
 +    wizard()->setProperty("localFolder", getHomeFolderPath());
  
      // call to init label
      updateStatus();
-@@ -448,7 +448,7 @@ void OwncloudAdvancedSetupPage::setRemot
+@@ -455,7 +450,7 @@ void OwncloudAdvancedSetupPage::setRemot
  
  void OwncloudAdvancedSetupPage::slotSelectFolder()
  {
@@ -132,7 +137,7 @@ diff -upNr desktop-3.7.4/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.
      if (!dir.isEmpty()) {
          // TODO: remove when UX decision is made
          refreshVirtualFilesAvailibility(dir);
-@@ -540,8 +540,8 @@ void OwncloudAdvancedSetupPage::slotQuot
+@@ -547,8 +542,8 @@ void OwncloudAdvancedSetupPage::slotQuot
  qint64 OwncloudAdvancedSetupPage::availableLocalSpace() const
  {
      QString localDir = localFolder();
@@ -143,10 +148,10 @@ diff -upNr desktop-3.7.4/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.
      QStorageInfo storage(QDir::toNativeSeparators(path));
  
      return storage.bytesAvailable();
-diff -upNr desktop-3.7.4/src/libsync/configfile.cpp desktop-3.7.4.patched/src/libsync/configfile.cpp
---- desktop-3.7.4/src/libsync/configfile.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/libsync/configfile.cpp	2023-03-11 16:00:40.070579869 +0100
-@@ -1001,7 +1001,7 @@ void ConfigFile::setAutomaticLogDir(bool
+diff -upNr desktop-3.8.0/src/libsync/configfile.cpp desktop-3.8.0.patched/src/libsync/configfile.cpp
+--- desktop-3.8.0/src/libsync/configfile.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/libsync/configfile.cpp	2023-04-16 22:03:38.554930255 +0200
+@@ -1014,7 +1014,7 @@ void ConfigFile::setAutomaticLogDir(bool
  
  QString ConfigFile::logDir() const
  {
@@ -155,10 +160,10 @@ diff -upNr desktop-3.7.4/src/libsync/configfile.cpp desktop-3.7.4.patched/src/li
      QSettings settings(configFile(), QSettings::IniFormat);
      return settings.value(QLatin1String(logDirC), defaultLogDir).toString();
  }
-diff -upNr desktop-3.7.4/src/libsync/logger.cpp desktop-3.7.4.patched/src/libsync/logger.cpp
---- desktop-3.7.4/src/libsync/logger.cpp	2023-03-09 09:57:57.000000000 +0100
-+++ desktop-3.7.4.patched/src/libsync/logger.cpp	2023-03-11 16:00:40.070579869 +0100
-@@ -215,7 +215,7 @@ void Logger::setLogDebug(bool debug)
+diff -upNr desktop-3.8.0/src/libsync/logger.cpp desktop-3.8.0.patched/src/libsync/logger.cpp
+--- desktop-3.8.0/src/libsync/logger.cpp	2023-03-31 18:04:57.000000000 +0200
++++ desktop-3.8.0.patched/src/libsync/logger.cpp	2023-04-16 22:03:38.554930255 +0200
+@@ -218,7 +218,7 @@ void Logger::setLogDebug(bool debug)
  
  QString Logger::temporaryFolderLogDirPath() const
  {
@@ -167,7 +172,7 @@ diff -upNr desktop-3.7.4/src/libsync/logger.cpp desktop-3.7.4.patched/src/libsyn
  }
  
  void Logger::setupTemporaryFolderLogDir()
-@@ -255,7 +255,7 @@ void Logger::setLogRules(const QSet<QStr
+@@ -258,7 +258,7 @@ void Logger::setLogRules(const QSet<QStr
  
  void Logger::dumpCrashLog()
  {
