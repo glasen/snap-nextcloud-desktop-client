@@ -1,6 +1,6 @@
-diff -upNr desktop-3.8.0/src/common/utility.h desktop-3.8.0.patched/src/common/utility.h
---- desktop-3.8.0/src/common/utility.h	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/common/utility.h	2023-04-16 22:03:38.550930205 +0200
+diff -upNr desktop-3.9.0.orig/src/common/utility.h desktop-3.9.0.patched/src/common/utility.h
+--- desktop-3.9.0.orig/src/common/utility.h	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/common/utility.h	2023-06-25 14:49:02.036349161 +0200
 @@ -30,6 +30,8 @@
  #include <QMap>
  #include <QUrl>
@@ -41,9 +41,9 @@ diff -upNr desktop-3.8.0/src/common/utility.h desktop-3.8.0.patched/src/common/u
  }
 +
  #endif // UTILITY_H
-diff -upNr desktop-3.8.0/src/gui/folderwizard.cpp desktop-3.8.0.patched/src/gui/folderwizard.cpp
---- desktop-3.8.0/src/gui/folderwizard.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/gui/folderwizard.cpp	2023-04-16 22:09:47.730932385 +0200
+diff -upNr desktop-3.9.0.orig/src/gui/folderwizard.cpp desktop-3.9.0.patched/src/gui/folderwizard.cpp
+--- desktop-3.9.0.orig/src/gui/folderwizard.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/gui/folderwizard.cpp	2023-06-25 14:49:02.036349161 +0200
 @@ -23,6 +23,7 @@
  #include "creds/abstractcredentials.h"
  #include "wizard/owncloudwizard.h"
@@ -70,9 +70,9 @@ diff -upNr desktop-3.8.0/src/gui/folderwizard.cpp desktop-3.8.0.patched/src/gui/
      QDir d(sf);
  
      // open the first entry of the home dir. Otherwise the dir picker comes
-diff -upNr desktop-3.8.0/src/gui/owncloudsetupwizard.cpp desktop-3.8.0.patched/src/gui/owncloudsetupwizard.cpp
---- desktop-3.8.0/src/gui/owncloudsetupwizard.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/gui/owncloudsetupwizard.cpp	2023-04-16 22:03:38.554930255 +0200
+diff -upNr desktop-3.9.0.orig/src/gui/owncloudsetupwizard.cpp desktop-3.9.0.patched/src/gui/owncloudsetupwizard.cpp
+--- desktop-3.9.0.orig/src/gui/owncloudsetupwizard.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/gui/owncloudsetupwizard.cpp	2023-06-25 14:49:02.040349145 +0200
 @@ -37,6 +37,7 @@
  #include "creds/credentialsfactory.h"
  #include "creds/abstractcredentials.h"
@@ -90,9 +90,9 @@ diff -upNr desktop-3.8.0/src/gui/owncloudsetupwizard.cpp desktop-3.8.0.patched/s
      }
  
      _ocWizard->setProperty("localFolder", localFolder);
-diff -upNr desktop-3.8.0/src/gui/syncrunfilelog.cpp desktop-3.8.0.patched/src/gui/syncrunfilelog.cpp
---- desktop-3.8.0/src/gui/syncrunfilelog.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/gui/syncrunfilelog.cpp	2023-04-16 22:03:38.554930255 +0200
+diff -upNr desktop-3.9.0.orig/src/gui/syncrunfilelog.cpp desktop-3.9.0.patched/src/gui/syncrunfilelog.cpp
+--- desktop-3.9.0.orig/src/gui/syncrunfilelog.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/gui/syncrunfilelog.cpp	2023-06-25 14:49:02.040349145 +0200
 @@ -32,7 +32,7 @@ void SyncRunFileLog::start(const QString
  {
      const qint64 logfileMaxSize = 10 * 1024 * 1024; // 10MiB
@@ -102,9 +102,9 @@ diff -upNr desktop-3.8.0/src/gui/syncrunfilelog.cpp desktop-3.8.0.patched/src/gu
      if(!QDir(logpath).exists()) {
          QDir().mkdir(logpath);
      }
-diff -upNr desktop-3.8.0/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.8.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp
---- desktop-3.8.0/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-04-16 22:08:53.842324740 +0200
+diff -upNr desktop-3.9.0.orig/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.9.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp
+--- desktop-3.9.0.orig/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/gui/wizard/owncloudadvancedsetuppage.cpp	2023-06-25 14:49:02.040349145 +0200
 @@ -34,6 +34,7 @@
  #include "creds/abstractcredentials.h"
  #include "networkjobs.h"
@@ -148,10 +148,10 @@ diff -upNr desktop-3.8.0/src/gui/wizard/owncloudadvancedsetuppage.cpp desktop-3.
      QStorageInfo storage(QDir::toNativeSeparators(path));
  
      return storage.bytesAvailable();
-diff -upNr desktop-3.8.0/src/libsync/configfile.cpp desktop-3.8.0.patched/src/libsync/configfile.cpp
---- desktop-3.8.0/src/libsync/configfile.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/libsync/configfile.cpp	2023-04-16 22:03:38.554930255 +0200
-@@ -1014,7 +1014,7 @@ void ConfigFile::setAutomaticLogDir(bool
+diff -upNr desktop-3.9.0.orig/src/libsync/configfile.cpp desktop-3.9.0.patched/src/libsync/configfile.cpp
+--- desktop-3.9.0.orig/src/libsync/configfile.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/libsync/configfile.cpp	2023-06-25 14:49:02.040349145 +0200
+@@ -1032,7 +1032,7 @@ void ConfigFile::setAutomaticLogDir(bool
  
  QString ConfigFile::logDir() const
  {
@@ -160,10 +160,10 @@ diff -upNr desktop-3.8.0/src/libsync/configfile.cpp desktop-3.8.0.patched/src/li
      QSettings settings(configFile(), QSettings::IniFormat);
      return settings.value(QLatin1String(logDirC), defaultLogDir).toString();
  }
-diff -upNr desktop-3.8.0/src/libsync/logger.cpp desktop-3.8.0.patched/src/libsync/logger.cpp
---- desktop-3.8.0/src/libsync/logger.cpp	2023-03-31 18:04:57.000000000 +0200
-+++ desktop-3.8.0.patched/src/libsync/logger.cpp	2023-04-16 22:03:38.554930255 +0200
-@@ -218,7 +218,7 @@ void Logger::setLogDebug(bool debug)
+diff -upNr desktop-3.9.0.orig/src/libsync/logger.cpp desktop-3.9.0.patched/src/libsync/logger.cpp
+--- desktop-3.9.0.orig/src/libsync/logger.cpp	2023-06-13 09:12:20.000000000 +0200
++++ desktop-3.9.0.patched/src/libsync/logger.cpp	2023-06-25 14:49:02.040349145 +0200
+@@ -229,7 +229,7 @@ void Logger::setLogDebug(bool debug)
  
  QString Logger::temporaryFolderLogDirPath() const
  {
@@ -172,7 +172,7 @@ diff -upNr desktop-3.8.0/src/libsync/logger.cpp desktop-3.8.0.patched/src/libsyn
  }
  
  void Logger::setupTemporaryFolderLogDir()
-@@ -258,7 +258,7 @@ void Logger::setLogRules(const QSet<QStr
+@@ -269,7 +269,7 @@ void Logger::setLogRules(const QSet<QStr
  
  void Logger::dumpCrashLog()
  {

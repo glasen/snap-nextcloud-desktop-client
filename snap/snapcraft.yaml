@@ -1,5 +1,5 @@
 name: nextcloud-desktop-client
-version: '3.8.2'
+version: '3.9.0'
 base: core20
 summary: Nextcloud Desktop Client
 description: |
@@ -138,11 +138,10 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr/
       - -DQUICK_COMPILER=ON
       - -DWITH_CRASHREPORTER=OFF
-    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.8.2.tar.gz
+    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.9.0.tar.gz
     source-type: tar
     override-pull: |
       snapcraftctl pull
-      patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/patches/disable_debug_logging.diff"
       patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/patches/folder_path.diff"
     stage:
       - -usr/share/caja-python
@@ -161,6 +160,7 @@ parts:
       - libqt5webenginecore5
       - libqt5webenginewidgets5
       - libqt5websockets5
+      - libqt5xml5
       - qml-module-qt-labs-platform
       - qml-module-qt-labs-qmlmodels
       - qml-module-qtgraphicaleffects
