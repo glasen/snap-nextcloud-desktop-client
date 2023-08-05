@@ -1,6 +1,6 @@
 name: nextcloud-desktop-client
-version: '3.9.0'
-base: core20
+version: '3.9.1'
+base: core22
 summary: Nextcloud Desktop Client
 description: |
   Use the desktop clients to keep your files synchronized between your Nextcloud server and your desktop. Select one or more directories on your local machine and always have access to your latest files wherever you are. 
@@ -39,7 +39,6 @@ plugs:
 
 apps:
   nextcloudcmd:
-    adapter: full
     command: usr/bin/nextcloudcmd
     plugs:
       - home
@@ -47,8 +46,7 @@ apps:
       - network-bind
 
   nextcloud:
-    adapter: full
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command-chain:
       - bin/desktop-launch
     command: usr/bin/nextcloud
@@ -93,7 +91,7 @@ build-packages:
 package-repositories:
   - type: apt
     components: [main]
-    suites: [focal]
+    suites: [jammy]
     key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
     url: http://archive.neon.kde.org/user
 
@@ -118,6 +116,7 @@ parts:
     make-parameters: ["FLAVOR=qt5"]
     stage-packages:
       - fcitx-frontend-qt5
+      - fonts-ubuntu
       - libqt5gui5
       - libqt5svg5
       - libxkbcommon0
@@ -138,10 +137,10 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr/
       - -DQUICK_COMPILER=ON
       - -DWITH_CRASHREPORTER=OFF
-    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.9.0.tar.gz
+    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.9.1.tar.gz
     source-type: tar
     override-pull: |
-      snapcraftctl pull
+      craftctl default
       patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/patches/folder_path.diff"
     stage:
       - -usr/share/caja-python
