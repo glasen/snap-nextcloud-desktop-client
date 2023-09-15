@@ -1,5 +1,5 @@
 name: nextcloud-desktop-client
-version: '3.9.2'
+version: '3.9.4'
 base: core22
 summary: Nextcloud Desktop Client
 description: |
@@ -137,7 +137,7 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr/
       - -DQUICK_COMPILER=ON
       - -DWITH_CRASHREPORTER=OFF
-    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.9.2.tar.gz
+    source: https://github.com/nextcloud/desktop/archive/refs/tags/v3.9.4.tar.gz
     source-type: tar
     override-pull: |
       craftctl default
