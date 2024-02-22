@@ -154,12 +154,13 @@ parts:
       - libqt5keychain1
       - libqt5quickcontrols2-5
       - libqt5quicktemplates2-5
+      - libqt5sql5
       - libqt5webengine-data
       - libqt5webengine5
       - libqt5webenginecore5
       - libqt5webenginewidgets5
       - libqt5websockets5
-      - libqt5xml5
+      - libqt5xml5ls
       - qml-module-qt-labs-platform
       - qml-module-qt-labs-qmlmodels
       - qml-module-qtgraphicaleffects
