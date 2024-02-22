@@ -160,7 +160,7 @@ parts:
       - libqt5webenginecore5
       - libqt5webenginewidgets5
       - libqt5websockets5
-      - libqt5xml5ls
+      - libqt5xml5
       - qml-module-qt-labs-platform
       - qml-module-qt-labs-qmlmodels
       - qml-module-qtgraphicaleffects
